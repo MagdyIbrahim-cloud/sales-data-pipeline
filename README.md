@@ -3,6 +3,7 @@ Sales Data Pipeline
 A Databricks-based sales data pipeline built on AWS S3 and following the Medallion Architecture. The pipeline processes sales data from the child company through Bronze, Silver, and Gold layers, with the Gold child-company data integrated into a parent-company Gold layer for consolidated reporting and analytics.
 
 Architecture
+```text
                          AWS S3
                            │
                            ▼
@@ -41,6 +42,7 @@ Architecture
                     │  Dashboard  │
                     │  & Analytics│
                     └─────────────┘
+```
 Overview
 
 This project demonstrates an end-to-end sales data engineering pipeline using Databricks and Amazon S3.
@@ -58,7 +60,7 @@ Key Features
 Full Load
 
 The full-load process is used to initially ingest the available historical sales data from the S3 bucket.
-
+```text
 S3
  │
  ▼
@@ -72,13 +74,14 @@ Gold Child
  │
  ▼
 Gold Parent
+```
 
 This provides a complete historical dataset for downstream analytics.
 
 Incremental Load
 
 After the initial full load, the pipeline can process newly arrived or changed data incrementally rather than reprocessing the entire dataset.
-
+```text
 New/Updated Data in S3
           │
           ▼
@@ -92,7 +95,7 @@ New/Updated Data in S3
           │
           ▼
      Gold Parent
-
+```
 Incremental processing helps reduce processing time and unnecessary compute by focusing on new or changed records.
 
 Medallion Architecture
@@ -135,7 +138,7 @@ The Gold layer represents the final analytical view of the child company's sales
 The child company's Gold data is integrated into the Parent Company Gold layer after checking which months were affected.
 
 This enables the parent company to combine the child company's sales information with other company-level data and create a consolidated view.
-
+```text
 Child Company
      │
      └── Gold Sales Data
@@ -147,19 +150,19 @@ Child Company
                     │
                     ▼
              Consolidated Data
-
+```
 This integration allows parent-level reporting and analytics while maintaining the child company's dedicated data pipeline.
 
 Data Source
 
 The source data is stored in an AWS S3 bucket.
-
+```text
 AWS S3 Bucket
     │
     ├── Historical Data
     │
     └── Incremental Data
-
+```
 Databricks is responsible for ingesting and processing the data through the different Medallion layers.
 
 Technology Stack
